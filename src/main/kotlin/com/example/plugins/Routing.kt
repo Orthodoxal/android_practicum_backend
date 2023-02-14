@@ -7,6 +7,7 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import java.io.File
 
 fun Application.configureRouting() {
     routing {
@@ -17,6 +18,11 @@ fun Application.configureRouting() {
         post("/events") {
             val filterCategoryDto = call.receive(FilterCategoriesReceiveDto::class)
             call.respond(EventRepository().filterEvents(filterCategoryDto))
+        }
+
+        get("/friendPhoto") {
+            val file = File("images/avatar_2.png")
+            call.respondFile(file)
         }
     }
 }
